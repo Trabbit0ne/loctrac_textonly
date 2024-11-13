@@ -127,17 +127,24 @@ show_help() {
     echo -e "---------------------------------------------         "
     echo -e "Options:                                              "
     echo -e "  [-m] | Track your own public IP                     "
+    echo -e "  [IP] | Track a custom IP address                    "
     echo -e "  [-h] | Show help and usage information              "
     echo -e "  [-v] | Show current version of the program          "
     echo
     echo -e "---------------------------------------------         "
     echo -e "Examples:                                             "
-    echo -e "  [1. loctrac -m ]   Every scans mades                "
-    echo -e "  [2. loctrac -h ]   Show help                        "
-    echo -e "  [3. loctrac -v ]   Show version                     "
+    echo -e "  [1. loctrac -m ]   Every scans made                 "
+    echo -e "  [2. loctrac 8.8.8.8 ]   Track a specific IP         "
+    echo -e "  [3. loctrac -h ]   Show help                        "
+    echo -e "  [4. loctrac -v ]   Show version                     "
 }
 
 # Main script logic
+if [ $# -eq 0 ]; then
+    show_help
+    exit 0
+fi
+
 while getopts "mhv" opt; do
     case $opt in
         m)
@@ -171,7 +178,8 @@ while getopts "mhv" opt; do
     esac
 done
 
-# If no options were passed, show help
+# If no options were passed, treat the first argument as a custom IP
 if [ $OPTIND -eq 1 ]; then
-    show_help
+    ip_to_track="$1"
+    get_ip_location "$ip_to_track"
 fi
