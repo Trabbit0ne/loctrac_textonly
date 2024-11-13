@@ -1,5 +1,5 @@
 #!/bin/bash
- 
+
  ##################################################################
  # WARNING: This Tool Is Made For Pentesters And Ethical Purposes #
  ##################################################################
@@ -17,6 +17,9 @@
 # Date: 2024-07-13
 # ----------------------------------------
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Variables
+version="1.4.0"
 
 # Set color code shortcuts
 blue="\e[36m"     # Blue text code
@@ -96,7 +99,6 @@ get_ip_location() {
     local device_type="unknown"  # Placeholder for device type detection logic
 
     # Display IP location information
-    clear
     echo -e "     |     \_|)   _   _ _|_  ,_   _,   _        "
     echo -e "  --(+)--    |   / \_/   |  /  | / |  /         "
     echo -e "     |      (\__/\_/ \__/|_/   |/\/|_/\__/      "
@@ -146,7 +148,20 @@ while getopts "mhv" opt; do
             show_help
             ;;
         v)
-            echo -e "${text_color}Loctrac Version 1.0${clean}"
+            echo "        _____             "
+            echo "    ,-:\' \;',\'-.        "
+            echo "  .'-;_,;  ':-;_,.'       "
+            echo " /;   '/    ,  _\'.-\\    "
+            echo "| '\'.' (\'  /' \' \'|    "
+            echo "|:.  \'\\'-.   \_   / |   "
+            echo "|     (   \`,  .\'\\ ;'|  "
+            echo " \\     | .'     \'-'/    "
+            echo "  \'.   ;/        .'      "
+            echo "    ''-._____.            "
+            echo
+            echo "        LOCTRAC           "
+            echo
+            echo -e "   [Version]: $version "
             ;;
         \?)
             echo -e "${red}Invalid option: -$OPTARG${clean}" >&2
