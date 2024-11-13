@@ -1,3 +1,5 @@
+#!/bin/bash
+ 
  ##################################################################
  # WARNING: This Tool Is Made For Pentesters And Ethical Purposes #
  ##################################################################
@@ -15,8 +17,6 @@
 # Date: 2024-07-13
 # ----------------------------------------
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#!/bin/bash
 
 # Set color code shortcuts
 blue="\e[36m"     # Blue text code
@@ -97,9 +97,9 @@ get_ip_location() {
 
     # Display IP location information
     clear
-    echo -e "   |     \_|)   _   _ _|_  ,_   _,   _        "
-    echo -e "--(+)--    |   / \_/   |  /  | / |  /         "
-    echo -e "   |      (\__/\_/ \__/|_/   |/\/|_/\__/      "
+    echo -e "     |     \_|)   _   _ _|_  ,_   _,   _        "
+    echo -e "  --(+)--    |   / \_/   |  /  | / |  /         "
+    echo -e "     |      (\__/\_/ \__/|_/   |/\/|_/\__/      "
     echo
     echo -e "${bg_color}       PENTAGONE GROUP - LOCTRAC SOFTWARE       ${clean}"
     echo
@@ -117,7 +117,6 @@ get_ip_location() {
     echo -e "${text_color}[INFO]${clean} [+] Latitude     => $latitude"
     echo -e "${text_color}[INFO]${clean} [+] Longitude    => $longitude"
     echo -e "${text_color}[INFO]${clean} [+] Location     => $latitude,$longitude"
-    echo -e "${text_color}[INFO]${clean} [+] Device Type  => $device_type"
 }
 
 # Function to display help
@@ -141,7 +140,6 @@ while getopts "mhv" opt; do
     case $opt in
         m)
             public_ip=$(get_public_ip)
-            echo -e "${text_color}Your public IP address is:${clean} $public_ip"
             get_ip_location "$public_ip"
             ;;
         h)
