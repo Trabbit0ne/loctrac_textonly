@@ -5,6 +5,10 @@ IP Location Tracking Software
 
 ## Installation
 ```
+wget -qO /bin/loctrac https://raw.githubusercontent.com/Trabbit0ne/loctrac_textonly/refs/heads/main/main.sh && chmod +x /bin/loctrac
+```
+OR
+```
 curl -sSL https://raw.githubusercontent.com/Trabbit0ne/loctrac_textonly/refs/heads/main/main.sh -o /bin/loctrac && chmod +x /bin/loctrac
 ```
 Then
