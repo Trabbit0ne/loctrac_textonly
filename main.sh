@@ -22,14 +22,18 @@
 version="1.4.0"
 
 # Set color code shortcuts
-blue="\e[36m"     # Blue text code
 red="\e[1;31m"    # Red text code
 green="\e[32m"    # Green text code
 yellow="\e[33m"   # Yellow text code
-bgblue="\e[46m"   # Blue background color code
+blue="\e[34m"     # Blue text code
+purple="\e[35m"   # Purple text code
+cyan="\e[36m"     # Cyan txt code
 bgred="\e[41m"    # Red background color code
 bggreen="\e[42m"  # Green background color code
 bgyellow="\e[43m" # Yellow background color code
+bgblue="\e[44m"   # Blue background color code
+bgpurple="\e[45m"   # Blue background color code
+bgcyan="\e[46m"   # Blue background color code
 clean="\e[0m"     # cleared color (empty)
 
 # Default theme color
