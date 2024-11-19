@@ -2,6 +2,11 @@
 
 ![image](https://github.com/user-attachments/assets/a4932657-0ce7-4013-b58a-401c1d98a784)
 
+### SUPPORTED ON
+- Android
+- Ubuntu
+- Kali Linux
+
 ## Installation
 ```
 wget -qO /bin/loctrac https://raw.githubusercontent.com/Trabbit0ne/loctrac_textonly/refs/heads/main/main.sh && chmod +x /bin/loctrac
