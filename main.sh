@@ -20,6 +20,7 @@
 
 # Variables
 version="1.4.0"
+proxy=$(curl -s http://ip-api.com/json/$ip?fields=proxy | jq -r '.proxy')
 
 # Set color code shortcuts
 red="\e[1;31m"    # Red text code
@@ -91,6 +92,32 @@ get_public_ip() {
     echo "${result:0:${#result}-3}"
 }
 
+# Function to check if a port is open
+check_port() {
+    local ip=$1
+    local port=$2
+    timeout 1 bash -c "</dev/tcp/$ip/$port" &>/dev/null && return 0 || return 1
+}
+
+# Function to determine the type of IP address
+determine_ip_type() {
+    local ip=$1
+    local type="unknown"
+
+    # Check common ports
+    if check_port $ip 80 || check_port $ip 443 || check_port $ip 8080; then
+        # Try to get the HTTP headers
+        response=$(curl -s -I http://$ip)
+        if [[ $response == *"HTTP/"* ]]; then
+            type="web server"
+        fi
+    else
+        type="unknown"
+    fi
+
+    echo "$type"
+}
+
 # Function to get IP location details
 get_ip_location() {
     local ip="$1"
@@ -100,7 +127,7 @@ get_ip_location() {
     local latitude=$(echo "$location_ipapi" | jq -r '.lat')
     local longitude=$(echo "$location_ipapi" | jq -r '.lon')
     local zip_code=$(echo "$location_ipapi" | jq -r '.zip')
-    local device_type="unknown"  # Placeholder for device type detection logic
+    local device_type=$(determine_ip_type "$ip")
 
     # Display IP location information
     echo -e "     |     \_|)   _   _ _|_  ,_   _,   _        "
@@ -123,6 +150,8 @@ get_ip_location() {
     echo -e "${text_color}[INFO]${clean} [+] Latitude     => $latitude"
     echo -e "${text_color}[INFO]${clean} [+] Longitude    => $longitude"
     echo -e "${text_color}[INFO]${clean} [+] Location     => $latitude,$longitude"
+    echo -e "${text_color}[INFO]${clean} [+] Proxy/VPN    => $proxy"
+    echo -e "${text_color}[INFO]${clean} [+] Type         => $device_type"
 }
 
 # Function to display help
@@ -162,28 +191,24 @@ while getopts "mhv" opt; do
             echo "        _____             "
             echo "    ,-:\' \;',\'-.        "
             echo "  .'-;_,;  ':-;_,.'       "
-            echo " /;   '/    ,  _\'.-\\    "
-            echo "| '\'.' (\'  /' \' \'|    "
-            echo "|:.  \'\\'-.   \_   / |   "
-            echo "|     (   \`,  .\'\\ ;'|  "
-            echo " \\     | .'     \'-'/    "
-            echo "  \'.   ;/        .'      "
-            echo "    ''-._____.            "
+            echo " /;   '/    ,  _'.-\      "
+            echo "| ''. ('     /' ' \'|     "
+            echo "|:.  '\'-.   \_   / |     "
+            echo "|     (   ',  .'\ ;'|     "
+            echo " \     | .'     '-'/      "
+            echo "  '.   ;/        .'       "
+            echo "    ''-._____..-'         "
             echo
-            echo "        LOCTRAC           "
+            echo -e "${text_color}Loctrac Software${clean} version ${bg_color}$version${clean}    "
             echo
-            echo -e "   [Version]: $version "
             ;;
-        \?)
-            echo -e "${red}Invalid option: -$OPTARG${clean}" >&2
+        *)
             show_help
-            exit 1
             ;;
     esac
+    exit 0
 done
 
-# If no options were passed, treat the first argument as a custom IP
-if [ $OPTIND -eq 1 ]; then
-    ip_to_track="$1"
-    get_ip_location "$ip_to_track"
+if [ $# -eq 1 ]; then
+    get_ip_location "$1"
 fi
