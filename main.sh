@@ -19,7 +19,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Variables
-version="1.4.0"
+version="1.4.5"
 proxy=$(curl -s http://ip-api.com/json/$ip?fields=proxy | jq -r '.proxy')
 
 # Set color code shortcuts
