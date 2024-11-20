@@ -19,8 +19,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Variables
-version="1.4.5"
-proxy=$(curl -s http://ip-api.com/json/$ip?fields=proxy | jq -r '.proxy')
+version="1.4.0"
 
 # Set color code shortcuts
 red="\e[1;31m"    # Red text code
@@ -33,15 +32,15 @@ bgred="\e[41m"    # Red background color code
 bggreen="\e[42m"  # Green background color code
 bgyellow="\e[43m" # Yellow background color code
 bgblue="\e[44m"   # Blue background color code
-bgpurple="\e[45m"   # Blue background color code
-bgcyan="\e[46m"   # Blue background color code
-clean="\e[0m"     # cleared color (empty)
+bgpurple="\e[45m" # Purple background color code
+bgcyan="\e[46m"   # Cyan background color code
+clean="\e[0m"     # Cleared color (empty)
 
 # Default theme color
 text_color="$red" # Default text color
-bg_color="$bgred" # Default background
+bg_color="$bgred" # Default background color
 
-# Function to write text with text writing effect
+# Function to write text with a text writing effect
 write() {
     local text="$1"
     local delay=${2:-0.02}  # Default delay of 0.02 seconds
@@ -122,12 +121,20 @@ determine_ip_type() {
 get_ip_location() {
     local ip="$1"
     local location_ipapi=$(curl -s "http://ip-api.com/json/$ip")
+    local location_ipapi2=$(curl -s "https://ipscan.me/$ip")
     handle_error $? "Failed to retrieve IP location details."
 
     local latitude=$(echo "$location_ipapi" | jq -r '.lat')
     local longitude=$(echo "$location_ipapi" | jq -r '.lon')
     local zip_code=$(echo "$location_ipapi" | jq -r '.zip')
     local device_type=$(determine_ip_type "$ip")
+    local latitude=$(echo "$location_ipapi2" | jq -r '.location.latitude')
+    local longitude=$(echo "$location_ipapi2" | jq -r '.location.longitude')
+    local proxy=$(curl -s http://ip-api.com/json/$ip?fields=proxy | jq -r '.proxy')
+    local accuracy=$(curl -s https://ipscan.me/$ip | jq -r '.location.accuracy')
+    local population=$(curl -s https://ipscan.me/$ip | jq -r '.country.population')
+    local capital=$(curl -s https://ipscan.me/$ip | jq -r '.country.capital')
+    local tld=$(curl -s https://ipscan.me/$ip | jq -r '.country.tld')
 
     # Display IP location information
     echo -e "     |     \_|)   _   _ _|_  ,_   _,   _        "
@@ -136,13 +143,16 @@ get_ip_location() {
     echo
     echo -e "${bg_color}       PENTAGONE GROUP - LOCTRAC SOFTWARE       ${clean}"
     echo
-    echo -e "${text_color}[INFO]${clean} [+] IP Address   => $ip    "
+    echo -e "${text_color}[INFO]${clean} [+] IP Address   => $ip"
     echo -e "${text_color}[INFO]${clean} [+] Country      => $(echo "$location_ipapi" | jq -r '.country')"
-    echo -e "${text_color}[INFO]${clean} [+] Date & Time  => $(date '+%Y-%m-%d %H:%M:%S')"
+    echo -e "${text_color}[INFO]${clean} [+] Localtime    => $(echo "$location_ipapi2" | jq -r '.timezone.localtime')"
     echo -e "${text_color}[INFO]${clean} [+] Region code  => $(echo "$location_ipapi" | jq -r '.region')"
     echo -e "${text_color}[INFO]${clean} [+] Region       => $(echo "$location_ipapi" | jq -r '.regionName')"
+    echo -e "${text_color}[INFO]${clean} [+] Capital      => $capital"
     echo -e "${text_color}[INFO]${clean} [+] City         => $(echo "$location_ipapi" | jq -r '.city')"
+    echo -e "${text_color}[INFO]${clean} [+] Population   => $population"
     echo -e "${text_color}[INFO]${clean} [+] Zip code     => $zip_code"
+    echo -e "${text_color}[INFO]${clean} [+] TLD          => $tld"
     echo -e "${text_color}[INFO]${clean} [+] Time zone    => $(echo "$location_ipapi" | jq -r '.timezone')"
     echo -e "${text_color}[INFO]${clean} [+] ISP          => $(echo "$location_ipapi" | jq -r '.isp')"
     echo -e "${text_color}[INFO]${clean} [+] Organization => $(echo "$location_ipapi" | jq -r '.org')"
@@ -150,6 +160,7 @@ get_ip_location() {
     echo -e "${text_color}[INFO]${clean} [+] Latitude     => $latitude"
     echo -e "${text_color}[INFO]${clean} [+] Longitude    => $longitude"
     echo -e "${text_color}[INFO]${clean} [+] Location     => $latitude,$longitude"
+    echo -e "${text_color}[INFO]${clean} [+] Accuracy     => $accuracy KM"
     echo -e "${text_color}[INFO]${clean} [+] Proxy/VPN    => $proxy"
     echo -e "${text_color}[INFO]${clean} [+] Type         => $device_type"
 }
@@ -167,48 +178,41 @@ show_help() {
     echo -e "---------------------------------------------         "
     echo -e "Examples:                                             "
     echo -e "  [1. loctrac -m ]   Every scans made                 "
-    echo -e "  [2. loctrac 8.8.8.8 ]   Track a specific IP         "
-    echo -e "  [3. loctrac -h ]   Show help                        "
-    echo -e "  [4. loctrac -v ]   Show version                     "
+    echo -e "  [2. loctrac IP ]    with the good intention         "
+    echo -e "  [3. loctrac -h ]                                    "
+    echo -e "  [4. loctrac -v ]                                    "
+    echo -e "---------------------------------------------         "
 }
 
-# Main script logic
-if [ $# -eq 0 ]; then
+# Handle input arguments
+if [ "$#" -eq 0 ]; then
     show_help
     exit 0
 fi
 
-while getopts "mhv" opt; do
-    case $opt in
-        m)
-            public_ip=$(get_public_ip)
-            get_ip_location "$public_ip"
-            ;;
-        h)
-            show_help
-            ;;
-        v)
-            echo "        _____             "
-            echo "    ,-:\' \;',\'-.        "
-            echo "  .'-;_,;  ':-;_,.'       "
-            echo " /;   '/    ,  _'.-\      "
-            echo "| ''. ('     /' ' \'|     "
-            echo "|:.  '\'-.   \_   / |     "
-            echo "|     (   ',  .'\ ;'|     "
-            echo " \     | .'     '-'/      "
-            echo "  '.   ;/        .'       "
-            echo "    ''-._____..-'         "
-            echo
-            echo -e "${text_color}Loctrac Software${clean} version ${bg_color}$version${clean}    "
-            echo
-            ;;
-        *)
-            show_help
-            ;;
-    esac
-    exit 0
-done
-
-if [ $# -eq 1 ]; then
-    get_ip_location "$1"
-fi
+case "$1" in
+    -m)
+        ip=$(get_public_ip)
+        get_ip_location "$ip"
+        ;;
+    -h)
+        show_help
+        ;;
+    -v)
+        echo "                    _____             "
+        echo "                ,-:\' \;',\'-.        "
+        echo "              .'-;_,;  ':-;_,.'       "
+        echo "             /;   '/    ,  _'.-\      "
+        echo "            | ''. ('     /' ' \'|     "
+        echo "            |:.  '\'-.   \_   / |     "
+        echo "            |     (   ',  .'\ ;'|     "
+        echo "             \     | .'     '-'/      "
+        echo "              '.   ;/        .'       "
+        echo "                ''-._____..-'         "
+        echo
+        echo -e "${bg_color}            Loctrac - Version: $version            ${clean}"
+        ;;
+    *)
+        get_ip_location "$1"
+        ;;
+esac
