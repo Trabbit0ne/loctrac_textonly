@@ -1,6 +1,6 @@
 <h1>Loctrac</h1>
 
-![image](https://github.com/user-attachments/assets/10f08502-2ff2-4964-87b4-8aa05f46e162)
+<img src="https://github.com/user-attachments/assets/10f08502-2ff2-4964-87b4-8aa05f46e162" style="width: 50%;">
 
 ### SUPPORTED ON
 - Android
