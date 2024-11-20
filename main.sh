@@ -167,21 +167,25 @@ get_ip_location() {
 
 # Function to display help
 show_help() {
-    echo -e "${bg_color}        .:: Loctrac Program Usage ::.        ${clean}"
-    echo -e "---------------------------------------------         "
-    echo -e "Options:                                              "
-    echo -e "  [-m] | Track your own public IP                     "
-    echo -e "  [IP] | Track a custom IP address                    "
-    echo -e "  [-h] | Show help and usage information              "
-    echo -e "  [-v] | Show current version of the program          "
+    echo -e "${bg_color}              .:: Loctrac Program Usage ::.              ${clean}  "
+    echo -e "          ( IP Address Location Tracking Tool )                   "
+    echo -e "----------------------------------------------------------        "
+    echo -e "Options:                                                          "
+    echo -e "  [IP]              Track IP address.                             "
+    echo -e "  [-m | --myself]   Track your own public IP address.             "
+    echo -e "  [-h | --help]     Show help and usage message.                  "
+    echo -e "  [-v | --version]  Show current version of the tool.             "
     echo
-    echo -e "---------------------------------------------         "
-    echo -e "Examples:                                             "
-    echo -e "  [1. loctrac -m ]                                    "
-    echo -e "  [2. loctrac IP ]                                    "
-    echo -e "  [3. loctrac -h ]                                    "
-    echo -e "  [4. loctrac -v ]                                    "
-    echo -e "---------------------------------------------         "
+    echo -e "---------------------------------------------------------         "
+    echo -e "Examples:                                                         "
+    echo -e "  [1. loctrac -m ]                                                "
+    echo -e "  [4. loctrac --myself ]                                          "
+    echo -e "  [2. loctrac 142.251.33.110 ]                                    "
+    echo -e "  [3. loctrac -h ]                                                "
+    echo -e "  [4. loctrac --help ]                                            "
+    echo -e "  [4. loctrac -v ]                                                "
+    echo -e "  [4. loctrac --version ]                                         "
+    echo -e "---------------------------------------------------------         "
 }
 
 # Handle input arguments
@@ -191,14 +195,14 @@ if [ "$#" -eq 0 ]; then
 fi
 
 case "$1" in
-    -m)
+    -m | --myself)
         ip=$(get_public_ip)
         get_ip_location "$ip"
         ;;
-    -h)
+    -h | --help)
         show_help
         ;;
-    -v)
+    -v | --version)
         echo "                    _____             "
         echo "                ,-:\' \;',\'-.        "
         echo "              .'-;_,;  ':-;_,.'       "
