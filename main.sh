@@ -177,8 +177,8 @@ show_help() {
     echo
     echo -e "---------------------------------------------         "
     echo -e "Examples:                                             "
-    echo -e "  [1. loctrac -m ]   Every scans made                 "
-    echo -e "  [2. loctrac IP ]    with the good intention         "
+    echo -e "  [1. loctrac -m ]                                    "
+    echo -e "  [2. loctrac IP ]                                    "
     echo -e "  [3. loctrac -h ]                                    "
     echo -e "  [4. loctrac -v ]                                    "
     echo -e "---------------------------------------------         "
