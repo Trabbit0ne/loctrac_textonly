@@ -14,12 +14,12 @@
 # ----------------------------------------
 # IP Location Tracking software
 # Author: Trabbit
-# Date: 2024-07-13
+# Creation Date: 2024-07-13
 # ----------------------------------------
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Variables
-version="1.4.0"
+version="1.4.5"
 
 # Set color code shortcuts
 red="\e[1;31m"    # Red text code
