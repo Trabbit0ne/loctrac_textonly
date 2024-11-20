@@ -1,6 +1,6 @@
 <h1>Loctrac</h1>
 
-![image](https://github.com/user-attachments/assets/36515c1b-6ee2-4dcf-bdef-95b8e78d4208)
+![image](https://github.com/user-attachments/assets/10f08502-2ff2-4964-87b4-8aa05f46e162)
 
 ### SUPPORTED ON
 - Android
