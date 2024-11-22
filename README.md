@@ -9,11 +9,11 @@
 
 ## Installation
 ```
-wget -qO /bin/loctrac https://raw.githubusercontent.com/Trabbit0ne/loctrac_textonly/refs/heads/main/main.sh && chmod +x /bin/loctrac
+wget -qO $(dirname $(command -v bash))/loctrac https://raw.githubusercontent.com/Trabbit0ne/loctrac_textonly/refs/heads/main/main.sh && chmod +x $(dirname $(command -v bash))/loctrac
 ```
 OR
 ```
-curl -sSL https://raw.githubusercontent.com/Trabbit0ne/loctrac_textonly/refs/heads/main/main.sh -o /bin/loctrac && chmod +x /bin/loctrac
+curl -sSL https://raw.githubusercontent.com/Trabbit0ne/loctrac_textonly/refs/heads/main/main.sh -o $(dirname $(command -v bash))/loctrac && chmod +x $(dirname $(command -v bash))/loctrac
 ```
 Then
 ```
