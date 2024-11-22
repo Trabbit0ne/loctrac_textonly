@@ -1,8 +1,8 @@
 #!/bin/bash
 
-##################################################################
-# WARNING: This Tool Is Made For Pentesters And Ethical Purposes #
-##################################################################
+ ##################################################################
+ # WARNING: This Tool Is Made For Pentesters And Ethical Purposes #
+ ##################################################################
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # ----------------------------------------
@@ -95,7 +95,7 @@ get_public_ip() {
 check_port() {
     local ip=$1
     local port=$2
-    timeout 1 bash -c "</dev/ttcp/$ip/$port" &>/dev/null && return 0 || return 1
+    timeout 1 bash -c "</dev/tcp/$ip/$port" &>/dev/null && return 0 || return 1
 }
 
 # Function to determine the type of IP address
@@ -120,33 +120,21 @@ determine_ip_type() {
 # Function to get IP location details
 get_ip_location() {
     local ip="$1"
-
-    # Call APIs concurrently and store results in variables
     local location_ipapi=$(curl -s "http://ip-api.com/json/$ip")
-    local location_ipscan=$(curl -s "https://ipscan.me/$ip")
+    local location_ipapi2=$(curl -s "https://ipscan.me/$ip")
     handle_error $? "Failed to retrieve IP location details."
 
-    # Extract data from responses
     local latitude=$(echo "$location_ipapi" | jq -r '.lat')
     local longitude=$(echo "$location_ipapi" | jq -r '.lon')
     local zip_code=$(echo "$location_ipapi" | jq -r '.zip')
-    local country=$(echo "$location_ipapi" | jq -r '.country')
-    local region=$(echo "$location_ipapi" | jq -r '.region')
-    local region_name=$(echo "$location_ipapi" | jq -r '.regionName')
-    local city=$(echo "$location_ipapi" | jq -r '.city')
-    local timezone=$(echo "$location_ipapi" | jq -r '.timezone')
-    local isp=$(echo "$location_ipapi" | jq -r '.isp')
-    local org=$(echo "$location_ipapi" | jq -r '.org')
-    local asn=$(echo "$location_ipapi" | jq -r '.as')
-    local proxy=$(echo "$location_ipapi" | jq -r '.proxy')
-
-    local localtime=$(echo "$location_ipscan" | jq -r '.timezone.localtime')
-    local accuracy=$(echo "$location_ipscan" | jq -r '.location.accuracy')
-    local population=$(echo "$location_ipscan" | jq -r '.country.population')
-    local capital=$(echo "$location_ipscan" | jq -r '.country.capital')
-    local tld=$(echo "$location_ipscan" | jq -r '.country.tld')
-
     local device_type=$(determine_ip_type "$ip")
+    local latitude=$(echo "$location_ipapi2" | jq -r '.location.latitude')
+    local longitude=$(echo "$location_ipapi2" | jq -r '.location.longitude')
+    local proxy=$(curl -s http://ip-api.com/json/$ip?fields=proxy | jq -r '.proxy')
+    local accuracy=$(curl -s https://ipscan.me/$ip | jq -r '.location.accuracy')
+    local population=$(curl -s https://ipscan.me/$ip | jq -r '.country.population')
+    local capital=$(curl -s https://ipscan.me/$ip | jq -r '.country.capital')
+    local tld=$(curl -s https://ipscan.me/$ip | jq -r '.country.tld')
 
     # Display IP location information
     echo -e "     |     \_|)   _   _ _|_  ,_   _,   _        "
@@ -156,19 +144,19 @@ get_ip_location() {
     echo -e "${bg_color}       PENTAGONE GROUP - LOCTRAC SOFTWARE       ${clean}"
     echo
     echo -e "${text_color}[INFO]${clean} [+] IP Address   => $ip"
-    echo -e "${text_color}[INFO]${clean} [+] Country      => $country"
-    echo -e "${text_color}[INFO]${clean} [+] Localtime    => $localtime"
-    echo -e "${text_color}[INFO]${clean} [+] Region code  => $region"
-    echo -e "${text_color}[INFO]${clean} [+] Region       => $region_name"
+    echo -e "${text_color}[INFO]${clean} [+] Country      => $(echo "$location_ipapi" | jq -r '.country')"
+    echo -e "${text_color}[INFO]${clean} [+] Localtime    => $(echo "$location_ipapi2" | jq -r '.timezone.localtime')"
+    echo -e "${text_color}[INFO]${clean} [+] Region code  => $(echo "$location_ipapi" | jq -r '.region')"
+    echo -e "${text_color}[INFO]${clean} [+] Region       => $(echo "$location_ipapi" | jq -r '.regionName')"
     echo -e "${text_color}[INFO]${clean} [+] Capital      => $capital"
-    echo -e "${text_color}[INFO]${clean} [+] City         => $city"
+    echo -e "${text_color}[INFO]${clean} [+] City         => $(echo "$location_ipapi" | jq -r '.city')"
     echo -e "${text_color}[INFO]${clean} [+] Population   => $population"
     echo -e "${text_color}[INFO]${clean} [+] Zip code     => $zip_code"
     echo -e "${text_color}[INFO]${clean} [+] TLD          => $tld"
-    echo -e "${text_color}[INFO]${clean} [+] Time zone    => $timezone"
-    echo -e "${text_color}[INFO]${clean} [+] ISP          => $isp"
-    echo -e "${text_color}[INFO]${clean} [+] Organization => $org"
-    echo -e "${text_color}[INFO]${clean} [+] ASN          => $asn"
+    echo -e "${text_color}[INFO]${clean} [+] Time zone    => $(echo "$location_ipapi" | jq -r '.timezone')"
+    echo -e "${text_color}[INFO]${clean} [+] ISP          => $(echo "$location_ipapi" | jq -r '.isp')"
+    echo -e "${text_color}[INFO]${clean} [+] Organization => $(echo "$location_ipapi" | jq -r '.org')"
+    echo -e "${text_color}[INFO]${clean} [+] ASN          => $(echo "$location_ipapi" | jq -r '.as')"
     echo -e "${text_color}[INFO]${clean} [+] Latitude     => $latitude"
     echo -e "${text_color}[INFO]${clean} [+] Longitude    => $longitude"
     echo -e "${text_color}[INFO]${clean} [+] Location     => $latitude,$longitude"
@@ -176,7 +164,7 @@ get_ip_location() {
     echo -e "${text_color}[INFO]${clean} [+] Proxy/VPN    => $proxy"
     echo -e "${text_color}[INFO]${clean} [+] Type         => $device_type"
     echo
-}
+    }
 
 # Function to display help
 show_help() {
