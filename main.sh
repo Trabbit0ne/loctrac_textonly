@@ -163,7 +163,8 @@ get_ip_location() {
     echo -e "${text_color}[INFO]${clean} [+] Accuracy     => $accuracy KM"
     echo -e "${text_color}[INFO]${clean} [+] Proxy/VPN    => $proxy"
     echo -e "${text_color}[INFO]${clean} [+] Type         => $device_type"
-}
+    echo
+    }
 
 # Function to display help
 show_help() {
