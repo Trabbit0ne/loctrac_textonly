@@ -16,19 +16,19 @@
 
 ## Installation Guide
 ### Option 1: Using Wget
-```
+````
 wget -qO $(dirname $(command -v bash))/loctrac https://raw.githubusercontent.com/Trabbit0ne/loctrac_textonly/refs/heads/main/main.sh && chmod +x $(dirname $(command -v bash))/loctrac
-```
+````
 OR
 ### Option 1: Using Curl
-```
+````
 curl -sSL https://raw.githubusercontent.com/Trabbit0ne/loctrac_textonly/refs/heads/main/main.sh -o $(dirname $(command -v bash))/loctrac && chmod +x $(dirname $(command -v bash))/loctrac
-```
+````
 ## Run Loctrac
 After installation, simply execute the following command:
-```
+````
 loctrac
-```
+````
 
 --
 
