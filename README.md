@@ -1,12 +1,8 @@
 # Loctrac
 
-<img src="https://github.com/user-attachments/assets/10f08502-2ff2-4964-87b4-8aa05f46e162" style="width: 60%;">
+<img src="https://github.com/user-attachments/assets/10f08502-2ff2-4964-87b4-8aa05f46e162" style="width: 50%;">
 
-### SUPPORTED ON
-- Android (Termux)
-- Ubuntu
-- Kali Linux
-
+### Supported on
 | Software Name | Price | Features | Supported Platforms |
 |----------|----------|----------|----------|
 | Loctrac | Free | Text-only IP tracking, simple installation | Android, Ubuntu, Kali Linux |
