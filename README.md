@@ -14,7 +14,7 @@
 | MaxMind GeoIP | Starts at $199/yr | Geolocation database, API for various programming languages | Linux, Windows, macOS |
 | IPinfo | Starts at $49/mo | Comprehensive geolocation data, API access | Linux, Windows, macOS |
 
---
+---
 
 ## Installation Guide
 ### Option 1: Using Wget
@@ -31,8 +31,6 @@ After installation, simply execute the following command:
 ````
 loctrac
 ````
-
---
 
 ## Why Choose Loctrac?
 Simplified text-based IP tracking.
