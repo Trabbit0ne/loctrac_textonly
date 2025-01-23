@@ -1,9 +1,8 @@
-# Loctrac
-
 <div align="center">
   <img src="https://github.com/user-attachments/assets/10f08502-2ff2-4964-87b4-8aa05f46e162" alt="logo" style="width: 50%;">
+  <h1>Loctrac</h1>
   
-[About](#supported-on) • [Install](#installation-guide) • [Loctrac](#why-choose-loctrac)
+  [About](#supported-on) • [Install](#installation-guide) • [Loctrac](#why-choose-loctrac)
 
 </div>
 
