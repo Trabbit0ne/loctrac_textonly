@@ -1,44 +1,43 @@
 #!/bin/bash
 
- ##################################################################
- # WARNING: This Tool Is Made For Pentesters And Ethical Purposes #
- ##################################################################
+###############################################################################
+#                               WARNING                                       #
+#           This tool is made for Pentesters and ethical purposes             #
+###############################################################################
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# ----------------------------------------
-# Youtube: TrabbitOne
-# BuyMeACoffee: trabbit0ne
-# Bitcoin: bc1qehnsx5tdwkulamttzla96dmv82ty9ak8l5yy40
-# ----------------------------------------
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# ----------------------------------------
-# IP Location Tracking software
-# Author: Trabbit
-# Creation Date: 2024-07-13
-# ----------------------------------------
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ---------------------------------------------------------------------------
+# Youtube:        TrabbitOne
+# Ko-Fi:          Trabbit
+# Bitcoin:        bc1qehnsx5tdwkulamttzla96dmv82ty9ak8l5yy40
+# ---------------------------------------------------------------------------
 
-# Variables
-version="1.4.5"
+# ---------------------------------------------------------------------------
+# Bug Bounty // Loctrac
+# Author:        Trabbit
+# Date:          2024-07-18
+# ---------------------------------------------------------------------------
 
 # Set color code shortcuts
-red="\e[1;31m"    # Red text code
-green="\e[32m"    # Green text code
-yellow="\e[33m"   # Yellow text code
-blue="\e[34m"     # Blue text code
-purple="\e[35m"   # Purple text code
-cyan="\e[36m"     # Cyan txt code
-bgred="\e[41m"    # Red background color code
-bggreen="\e[42m"  # Green background color code
-bgyellow="\e[43m" # Yellow background color code
-bgblue="\e[44m"   # Blue background color code
-bgpurple="\e[45m" # Purple background color code
-bgcyan="\e[46m"   # Cyan background color code
-clean="\e[0m"     # Cleared color (empty)
+red="\e[1;31m"    # Text Color: Red (Classic)
+green="\e[32m"    # Text Color: Green (Classic)
+yellow="\e[33m"   # Text Color: Yellow (Classic)
+blue="\e[34m"     # Text Color: Blue (Classic)
+purple="\e[35m"   # Text Color: Purple (Classic)
+cyan="\e[36m"     # Text Color: Cyan (Classic)
+bgred="\e[41m"    # Text Color: Red Background
+bggreen="\e[42m"  # Text Color: Green Background
+bgyellow="\e[43m" # Text Color: Yellow Background
+bgblue="\e[44m"   # Text Color: Blue Background
+bgpurple="\e[45m" # Text Color: Purple Background
+bgcyan="\e[46m"   # Text Color: Cyan Background
+clean="\e[0m"     # Text Color: Clean (empty)
 
 # Default theme color
 text_color="$red" # Default text color
 bg_color="$bgred" # Default background color
+
+# clear the terminal screen
+clear
 
 # Function to write text with a text writing effect
 write() {
@@ -137,32 +136,32 @@ get_ip_location() {
     local tld=$(curl -s https://ipscan.me/$ip | jq -r '.country.tld')
 
     # Display IP location information
-    echo -e "     |     \_|)   _   _ _|_  ,_   _,   _        "
-    echo -e "  --(+)--    |   / \_/   |  /  | / |  /         "
-    echo -e "     |      (\__/\_/ \__/|_/   |/\/|_/\__/      "
+    echo -e "     |     \_|)   _   _ _|_  ,_   _,   _                                                                         "
+    echo -e "  --(+)--    |   / \_/   |  /  | / |  /                                                                          "
+    echo -e "     |      (\__/\_/ \__/|_/   |/\/|_/\__/                                                                       "
     echo
-    echo -e "${bg_color}       PENTAGONE GROUP - LOCTRAC SOFTWARE       ${clean}"
+    echo -e "${bg_color}       PENTAGONE GROUP - LOCTRAC SOFTWARE       ${clean}                                              "
     echo
-    echo -e "${text_color}[INFO]${clean} [+] IP Address   => $ip"
-    echo -e "${text_color}[INFO]${clean} [+] Country      => $(echo "$location_ipapi" | jq -r '.country')"
-    echo -e "${text_color}[INFO]${clean} [+] Localtime    => $(echo "$location_ipapi2" | jq -r '.timezone.localtime')"
-    echo -e "${text_color}[INFO]${clean} [+] Region code  => $(echo "$location_ipapi" | jq -r '.region')"
-    echo -e "${text_color}[INFO]${clean} [+] Region       => $(echo "$location_ipapi" | jq -r '.regionName')"
-    echo -e "${text_color}[INFO]${clean} [+] Capital      => $capital"
-    echo -e "${text_color}[INFO]${clean} [+] City         => $(echo "$location_ipapi" | jq -r '.city')"
-    echo -e "${text_color}[INFO]${clean} [+] Population   => $population"
-    echo -e "${text_color}[INFO]${clean} [+] Zip code     => $zip_code"
-    echo -e "${text_color}[INFO]${clean} [+] TLD          => $tld"
-    echo -e "${text_color}[INFO]${clean} [+] Time zone    => $(echo "$location_ipapi" | jq -r '.timezone')"
-    echo -e "${text_color}[INFO]${clean} [+] ISP          => $(echo "$location_ipapi" | jq -r '.isp')"
-    echo -e "${text_color}[INFO]${clean} [+] Organization => $(echo "$location_ipapi" | jq -r '.org')"
-    echo -e "${text_color}[INFO]${clean} [+] ASN          => $(echo "$location_ipapi" | jq -r '.as')"
-    echo -e "${text_color}[INFO]${clean} [+] Latitude     => $latitude"
-    echo -e "${text_color}[INFO]${clean} [+] Longitude    => $longitude"
-    echo -e "${text_color}[INFO]${clean} [+] Location     => $latitude,$longitude"
-    echo -e "${text_color}[INFO]${clean} [+] Accuracy     => $accuracy KM"
-    echo -e "${text_color}[INFO]${clean} [+] Proxy/VPN    => $proxy"
-    echo -e "${text_color}[INFO]${clean} [+] Type         => $device_type"
+    echo -e "${text_color}[INFO]${clean} [+] IP Address   => $ip                                                              "
+    echo -e "${text_color}[INFO]${clean} [+] Country      => $(echo "$location_ipapi" | jq -r '.country')                     "
+    echo -e "${text_color}[INFO]${clean} [+] Localtime    => $(echo "$location_ipapi2" | jq -r '.timezone.localtime')         "
+    echo -e "${text_color}[INFO]${clean} [+] Region code  => $(echo "$location_ipapi" | jq -r '.region')                      "
+    echo -e "${text_color}[INFO]${clean} [+] Region       => $(echo "$location_ipapi" | jq -r '.regionName')                  "
+    echo -e "${text_color}[INFO]${clean} [+] Capital      => $capital                                                         "
+    echo -e "${text_color}[INFO]${clean} [+] City         => $(echo "$location_ipapi" | jq -r '.city')                        "
+    echo -e "${text_color}[INFO]${clean} [+] Population   => $population                                                      "
+    echo -e "${text_color}[INFO]${clean} [+] Zip code     => $zip_code                                                        "
+    echo -e "${text_color}[INFO]${clean} [+] TLD          => $tld                                                             "
+    echo -e "${text_color}[INFO]${clean} [+] Time zone    => $(echo "$location_ipapi" | jq -r '.timezone')                    "
+    echo -e "${text_color}[INFO]${clean} [+] ISP          => $(echo "$location_ipapi" | jq -r '.isp')                         "
+    echo -e "${text_color}[INFO]${clean} [+] Organization => $(echo "$location_ipapi" | jq -r '.org')                         "
+    echo -e "${text_color}[INFO]${clean} [+] ASN          => $(echo "$location_ipapi" | jq -r '.as')                          "
+    echo -e "${text_color}[INFO]${clean} [+] Latitude     => $latitude                                                        "
+    echo -e "${text_color}[INFO]${clean} [+] Longitude    => $longitude                                                       "
+    echo -e "${text_color}[INFO]${clean} [+] Location     => $latitude,$longitude                                             "
+    echo -e "${text_color}[INFO]${clean} [+] Accuracy     => $accuracy KM                                                     "
+    echo -e "${text_color}[INFO]${clean} [+] Proxy/VPN    => $proxy                                                           "
+    echo -e "${text_color}[INFO]${clean} [+] Type         => $device_type                                                     "
     echo
     }
 
