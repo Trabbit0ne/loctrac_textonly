@@ -36,6 +36,9 @@ clean="\e[0m"     # Text Color: Clean (empty)
 text_color="$red" # Default text color
 bg_color="$bgred" # Default background color
 
+# Informations
+version="V2.0"
+
 # clear the terminal screen
 clear
 
